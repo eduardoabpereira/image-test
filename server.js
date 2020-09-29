@@ -17,6 +17,7 @@ app.get(`/image`, async function (req, res) {
     console.log(data);
   });
 
+  const start = new Date()
   const image = await nodeHtmlToImage({
     html,
     content: {
@@ -40,6 +41,8 @@ app.get(`/image`, async function (req, res) {
       },
     },
   });
+  const end = new Date() - start
+  console.info('Execution time: %d ms', end)
 
   res.writeHead(200, { 'Content-Type': 'image/png' });
   res.end(image, 'binary');
